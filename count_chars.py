@@ -12,6 +12,7 @@ def relative_error(counter1,counter2):
     min_error = min(errors)
 
     return avg, max_error, min_error
+
 def exact_counter(sequence):
     results = {}
     for char in sequence:
@@ -57,21 +58,34 @@ def main(size):
 
     for i in range(size):
         sequence += random.choice(name)
+
+    print("Sequence size: "+str(len(sequence))+" chars \n")
     
     exact = exact_counter(sequence)
+    #ordenar por ordem crescente
+    exact = dict(sorted(exact.items(), key=lambda item: item[1]))
+    
     print("Exact Counter:")
-    print(exact)
-    print("\n")
+    print(str(exact)+"\n")
 
-    print("Fixed Probability Counter:")
+
     fixed = fixed_prob_counter(sequence)
-    print(fixed)
-    print("\n")
+    #ordenar por ordem crescente 
+    fixed = dict(sorted(fixed.items(), key=lambda item: item[1]))
+    
+    print("Fixed Probability Counter:")
+    print(str(fixed)+"\n")
+
+
+    dec_counter = log_counter(sequence)
+    #ordenar por ordem crescente 
+    dec_counter = dict(sorted(dec_counter.items(), key=lambda item: item[1]))
+    
 
     print("Decreasing Probability Logarithmic Counter:")
-    dec_counter = log_counter(sequence)
-    print(dec_counter)
-    print("\n")
+    print(str(dec_counter)+"\n")
+
+
 
     print("*** Exact vs Fixed Counter ***")
     avg_exact_fixed, max_exact_fixed, min_exact_fixed = relative_error(exact,fixed)
@@ -81,6 +95,11 @@ def main(size):
     print("\n")
     
     print("*** Exact vs Logarithmic Counter ***")
+    avg_exact_log, max_exact_log, min_exact_log = relative_error(exact,dec_counter)
+    print("Average Relative Error: % s" %(str(avg_exact_log)+"%"))
+    print("Max Relative Error: % s" %(str(max_exact_log)+"%"))
+    print("Min Relative Error: % s" %(str(min_exact_log)+"%")) 
+    print("\n")
 
 
 if __name__=='__main__':
