@@ -1,7 +1,29 @@
 import random
 import sys
 import math
-import logging
+import numpy
+
+def abs_mean_deviation(counter):
+    total=0
+    for i in counter:
+        total += counter[i]
+    avg = total/len(counter)
+
+    mean_dev = 0
+    for j in counter:
+        mean_dev += abs(counter[j]-avg)
+    mean_dev *= (1/len(counter))
+
+    return mean_dev
+
+def max_deviation(counter):
+    total=0
+    for i in counter:
+        total += counter[i]
+    avg = total/len(counter)
+    max_dev = max(abs(counter[c] - avg) for c in counter)
+    
+    return max_dev
 
 def relative_error(counter1,counter2):
     errors = []
@@ -36,7 +58,7 @@ def fixed_prob_counter(sequence):
     
     return results
 
-def log_counter(sequence):
+def logarithmic_counter(sequence):
     results = {}
     for char in sequence:
         if char in results:
@@ -61,6 +83,10 @@ def main(size):
 
     print("Sequence size: "+str(len(sequence))+" chars \n")
     
+
+    '''
+        Exact counter
+    '''
     exact = exact_counter(sequence)
     #ordenar por ordem crescente
     exact = dict(sorted(exact.items(), key=lambda item: item[1]))
@@ -68,7 +94,9 @@ def main(size):
     print("Exact Counter:")
     print(str(exact)+"\n")
 
-
+    '''
+        Fixed counter
+    '''
     fixed = fixed_prob_counter(sequence)
     #ordenar por ordem crescente 
     fixed = dict(sorted(fixed.items(), key=lambda item: item[1]))
@@ -77,13 +105,16 @@ def main(size):
     print(str(fixed)+"\n")
 
 
-    dec_counter = log_counter(sequence)
+    '''
+        Logarithmic Counter
+    '''
+    log_counter = logarithmic_counter(sequence)
     #ordenar por ordem crescente 
-    dec_counter = dict(sorted(dec_counter.items(), key=lambda item: item[1]))
+    log_counter = dict(sorted(log_counter.items(), key=lambda item: item[1]))
     
 
     print("Decreasing Probability Logarithmic Counter:")
-    print(str(dec_counter)+"\n")
+    print(str(log_counter)+"\n")
 
 
 
@@ -95,12 +126,37 @@ def main(size):
     print("\n")
     
     print("*** Exact vs Logarithmic Counter ***")
-    avg_exact_log, max_exact_log, min_exact_log = relative_error(exact,dec_counter)
+    avg_exact_log, max_exact_log, min_exact_log = relative_error(exact,log_counter)
     print("Average Relative Error: % s" %(str(avg_exact_log)+"%"))
     print("Max Relative Error: % s" %(str(max_exact_log)+"%"))
     print("Min Relative Error: % s" %(str(min_exact_log)+"%")) 
     print("\n")
 
+
+    print("*** Max Deviation ***")
+    print("Exact counter max deviation: "+str(max_deviation(exact)))
+    print("Fixed Probability counter max deviation: "+str(max_deviation(fixed)))
+    print("Logarithmic counter max deviation: "+str(max_deviation(log_counter)))
+    print("\n")
+
+
+    print("*** Absolute Mean Deviation ***")
+    print("Exact counter absolute mean deviation: "+str(abs_mean_deviation(exact)))
+    print("Fixed Probability counter absolute mean deviation: "+str(abs_mean_deviation(fixed)))
+    print("Logarithmic counter absolute mean deviation: "+str(abs_mean_deviation(log_counter)))
+    print("\n")
+
+    print("*** Standard Deviation ***")
+    print("Exact counter standard deviation: "+str(numpy.std(list(exact.values()))))
+    print("Fixed Probability counter standard deviation: "+str(numpy.std(list(fixed.values()))))
+    print("Logarithmic counter standard deviation: "+str(numpy.std(list(log_counter.values()))))
+    print("\n")
+
+    print("*** Variance ***")
+    print("Exact counter variance: "+str(numpy.var(list(exact.values()))))
+    print("Fixed Probability counter variance: "+str(numpy.var(list(fixed.values()))))
+    print("Logarithmic counter variance: "+str(numpy.var(list(log_counter.values()))))
+    print("\n")
 
 if __name__=='__main__':
     if len(sys.argv)!=2:
