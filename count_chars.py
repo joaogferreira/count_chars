@@ -120,16 +120,16 @@ def main(size):
 
     print("*** Exact vs Fixed Counter ***")
     avg_exact_fixed, max_exact_fixed, min_exact_fixed = relative_error(exact,fixed)
-    print("Average Relative Error: % s" %(str(avg_exact_fixed)+"%"))
-    print("Max Relative Error: % s" %(str(max_exact_fixed)+"%"))
-    print("Min Relative Error: % s" %(str(min_exact_fixed)+"%")) 
+    print("Average Relative Error:  "+(str(avg_exact_fixed)+"%"))
+    print("Max Relative Error:  "+(str(max_exact_fixed)+"%"))
+    print("Min Relative Error:  "+(str(min_exact_fixed)+"%")) 
     print("\n")
     
     print("*** Exact vs Logarithmic Counter ***")
     avg_exact_log, max_exact_log, min_exact_log = relative_error(exact,log_counter)
-    print("Average Relative Error: % s" %(str(avg_exact_log)+"%"))
-    print("Max Relative Error: % s" %(str(max_exact_log)+"%"))
-    print("Min Relative Error: % s" %(str(min_exact_log)+"%")) 
+    print("Average Relative Error:  "+(str(avg_exact_log)+"%"))
+    print("Max Relative Error:  "+(str(max_exact_log)+"%"))
+    print("Min Relative Error: "+(str(min_exact_log)+"%")) 
     print("\n")
 
 
@@ -158,7 +158,13 @@ def main(size):
     print("Logarithmic counter variance: "+str(numpy.var(list(log_counter.values()))))
     print("\n")
 
+    print("**************************************************************************")
 if __name__=='__main__':
-    if len(sys.argv)!=2:
-        sys.exit("Usage: python3 count_chars.py <sequence_size>")
-    main(int(sys.argv[1]))
+    for i in range(1,len(sys.argv)):
+        try:
+            int(sys.argv[i])
+        except ValueError:
+            sys.exit("Argument is not a number.")
+        main(int(sys.argv[i]))
+
+    #python3 count_chars.py 100 1000 10000 100000 1000000 (etc)
