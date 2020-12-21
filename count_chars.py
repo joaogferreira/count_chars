@@ -65,11 +65,11 @@ def logarithmic_counter(sequence):
             value = random.choices([0,1], weights = [1-1/(math.sqrt(2)**results[char]), 1/(math.sqrt(2)**results[char])])
             results[char]+=value[0]
         else:
-            value = random.choices([0,1], weights = [0, 1]) #math.sqrt(2)**0  = 1
+            value = random.choices([0,1], weights = [0, 1]) # 1 / math.sqrt(2)**0  = 1
             results[char]=value[0]
     
     for r in results:
-        results[r] = math.sqrt(2)**results[r]-1
+        results[r] *= math.sqrt(2)**results[r]
     
 
     return results
