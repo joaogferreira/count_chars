@@ -160,6 +160,9 @@ def main(size):
 
     print("**************************************************************************")
 if __name__=='__main__':
+    if len(sys.argv)==1:
+        sys.exit("usage: python count_chars.py <sequence_size>")
+    
     for i in range(1,len(sys.argv)):
         try:
             int(sys.argv[i])
