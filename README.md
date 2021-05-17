@@ -1,6 +1,6 @@
 # Count chars
 
-Este projeto foi desenvolvivo no âmbito da UC Algoritmos Avançados da Universidade de Aveiro.
+Este projeto foi desenvolvido no âmbito da UC Algoritmos Avançados da Universidade de Aveiro.
 Consiste na contagem de caracteres numa sequência de caracteres aleatória, utilizando três contadores distintos: um contador exato, um contador de probabilidade fixa (1/8) e um contador de probabilidade fixa decrescente.
 
 ## Usage - Examples
